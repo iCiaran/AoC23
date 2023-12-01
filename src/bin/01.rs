@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 advent_of_code::solution!(1);
 
 fn get_digits(line: &str) -> Vec<u32> {
@@ -10,7 +8,7 @@ fn get_digits(line: &str) -> Vec<u32> {
 }
 
 fn get_digits_with_words(line: &str) -> Vec<u32> {
-    let number_map: HashMap<&str, u32> = HashMap::from([
+    let number_map: Vec<(&str, u32)> = vec![
         ("one", 1),
         ("two", 2),
         ("three", 3),
@@ -20,20 +18,20 @@ fn get_digits_with_words(line: &str) -> Vec<u32> {
         ("seven", 7),
         ("eight", 8),
         ("nine", 9),
-    ]);
+    ];
 
     let mut digits: Vec<(usize, u32)> = line
         .chars()
         .enumerate()
-        .filter(|&(_, c)| c.is_ascii_digit())
+        .filter(|(_, c)| c.is_ascii_digit())
         .map(|(i, c)| (i, c.to_digit(10).unwrap()))
         .collect();
 
     let mut word_digits: Vec<(usize, u32)> = number_map
         .iter()
-        .flat_map(|(&k, &v)| {
+        .flat_map(|(k, v)| {
             line.match_indices(k)
-                .map(move |(i, _)| (i, v))
+                .map(move |(i, _)| (i, *v))
                 .collect::<Vec<_>>()
         })
         .collect();
