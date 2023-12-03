@@ -36,14 +36,8 @@ fn parse_colours(colours: &str) -> Colours {
         let (number, colour) = parse_colour(c);
         match colour {
             "red" => Colours { red: number, ..acc },
-            "green" => Colours {
-                green: number,
-                ..acc
-            },
-            "blue" => Colours {
-                blue: number,
-                ..acc
-            },
+            "green" => Colours { green: number, ..acc },
+            "blue" => Colours { blue: number, ..acc },
             _ => acc,
         }
     })
@@ -66,11 +60,7 @@ fn max_colours(colours: Vec<Colours>) -> Colours {
 }
 
 pub fn part_one(input: &str) -> Option<u32> {
-    let real_colours = Colours {
-        red: 12,
-        green: 13,
-        blue: 14,
-    };
+    let real_colours = Colours { red: 12, green: 13, blue: 14 };
 
     Some(
         input

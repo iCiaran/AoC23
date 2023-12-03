@@ -36,15 +36,9 @@ mod args {
                 release: args.contains("--release"),
                 time: args.contains("--time"),
             },
-            Some("download") => AppArguments::Download {
-                day: args.free_from_str()?,
-            },
-            Some("read") => AppArguments::Read {
-                day: args.free_from_str()?,
-            },
-            Some("scaffold") => AppArguments::Scaffold {
-                day: args.free_from_str()?,
-            },
+            Some("download") => AppArguments::Download { day: args.free_from_str()? },
+            Some("read") => AppArguments::Read { day: args.free_from_str()? },
+            Some("scaffold") => AppArguments::Scaffold { day: args.free_from_str()? },
             Some("solve") => AppArguments::Solve {
                 day: args.free_from_str()?,
                 release: args.contains("--release"),
@@ -81,12 +75,9 @@ fn main() {
             AppArguments::Download { day } => download::handle(day),
             AppArguments::Read { day } => read::handle(day),
             AppArguments::Scaffold { day } => scaffold::handle(day),
-            AppArguments::Solve {
-                day,
-                release,
-                time,
-                submit,
-            } => solve::handle(day, release, time, submit),
+            AppArguments::Solve { day, release, time, submit } => {
+                solve::handle(day, release, time, submit)
+            }
         },
     };
 }
