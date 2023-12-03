@@ -1,16 +1,10 @@
 advent_of_code::solution!(2);
 
-#[derive(Default, Clone)]
+#[derive(Default)]
 struct Colours {
     red: u32,
     green: u32,
     blue: u32,
-}
-
-impl Colours {
-    fn new() -> Self {
-        Default::default()
-    }
 }
 
 fn game_is_possible(game_colours: &Colours, real_colours: &Colours) -> bool {
@@ -38,7 +32,7 @@ fn parse_all_colours(all_colours: &str) -> Vec<Colours> {
 }
 
 fn parse_colours(colours: &str) -> Colours {
-    colours.split(',').fold(Colours::new(), |acc, c| {
+    colours.split(',').fold(Colours::default(), |acc, c| {
         let (number, colour) = parse_colour(c);
         match colour {
             "red" => Colours { red: number, ..acc },
@@ -64,7 +58,7 @@ fn parse_colour(colour: &str) -> (u32, &str) {
 }
 
 fn max_colours(colours: Vec<Colours>) -> Colours {
-    colours.iter().fold(Colours::new(), |acc, c| Colours {
+    colours.iter().fold(Colours::default(), |acc, c| Colours {
         red: std::cmp::max(acc.red, c.red),
         green: std::cmp::max(acc.green, c.green),
         blue: std::cmp::max(acc.blue, c.blue),
