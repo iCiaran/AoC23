@@ -107,32 +107,22 @@ fn parse_hand(hand: &str, part_two: bool) -> Hand {
     }
 }
 
+fn get_winnings(input: &str, part_two: bool) -> u32 {
+    input
+        .lines()
+        .map(|line| parse_hand(line, part_two))
+        .sorted()
+        .enumerate()
+        .map(|(i, hand)| (i as u32 + 1) * hand.bid)
+        .sum::<u32>()
+}
+
 pub fn part_one(input: &str) -> Option<u32> {
-    Some(
-        input
-            .lines()
-            .map(|line| parse_hand(line, false))
-            .sorted()
-            .enumerate()
-            .map(|(i, hand)| (i as u32 + 1) * hand.bid)
-            .sum::<u32>(),
-    )
+    Some(get_winnings(input, false))
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    let sorted_hands = input
-        .lines()
-        .map(|line| parse_hand(line, true))
-        .sorted()
-        .collect::<Vec<_>>();
-
-    Some(
-        sorted_hands
-            .iter()
-            .enumerate()
-            .map(|(i, hand)| (i as u32 + 1) * hand.bid)
-            .sum::<u32>(),
-    )
+    Some(get_winnings(input, true))
 }
 
 #[cfg(test)]
